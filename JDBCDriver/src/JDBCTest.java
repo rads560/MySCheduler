@@ -106,6 +106,28 @@ public class JDBCTest {
 		for(int i = 0; i < peoples.size(); i ++)
 			System.out.println(peoples.get(i));
 		
+		// Test Hours
+		System.out.println("\n*******************************************\n");
+		
+		System.out.println("-- Kyrie has worked for 3 hours");
+		JDBCDriver.addWorkedHours(JDBCDriver.GetIdByName("Kyrie"), 3);
+		System.out.println("-- Kyrie has worked for 2 more hours");
+		JDBCDriver.addWorkedHours(JDBCDriver.GetIdByName("Kyrie"), 2);
+		System.out.println("-- Jane has worked for 9 hours");
+		JDBCDriver.addWorkedHours(JDBCDriver.GetIdByName("Jane"), 9);
+		System.out.println("-- Jane's worked hours are reset to 0");
+		JDBCDriver.resetWorkedHours(JDBCDriver.GetIdByName("Jane"));
+		System.out.println("Get Information from table");
+		for(int i = 1; true; i ++) {
+			UserInfo info = new UserInfo();
+			info = JDBCDriver.GetUserInfo(i);
+			if(info.empty())
+				break;
+			System.out.println("# User: " + i);
+			System.out.println(info.username);
+			System.out.println("Hours_worked: " + info.hours_worked);
+		}
+		
 		
 	}
 }

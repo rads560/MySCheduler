@@ -159,7 +159,68 @@ public class JDBCDriver {
 		return output;
 	}
 	
-	static public void updateHour(int userID, int hours_worked, int hourly_rate_of_pay) {
+	static public void addWorkedHours(int userID, int addition) {
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(url);
+			st = conn.createStatement();
+			rs = st.executeQuery("Select a.hours_worked FROM Account a WHERE userID = '" + userID + "'");
+			rs.next();
+			int hours_worked = rs.getInt("hours_worked") + addition;
+			st.execute("Update Account \n"
+					+ "SET hours_worked = '" + hours_worked + "'\n"
+					+ "WHERE userID = '" + userID + "'");
+			
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		}
+		finally {
+			try {
+				if(rs != null) {rs.close();}
+				if(st != null) {st.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	static public void resetWorkedHours(int userID) {
+		Connection conn = null;
+		Statement st = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(url);
+			st = conn.createStatement();
+			st.execute("Update Account \n"
+					+ "SET hours_worked = '" + 0 + "'\n"
+					+ "WHERE userID = '" + userID + "'");
+			
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		}
+		finally {
+			try {
+				if(st != null) {st.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+	}
+	
+	static public void updateHourlyRateOfPay(int userID, int hourly_rate_of_pay) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -170,7 +231,7 @@ public class JDBCDriver {
 			conn = DriverManager.getConnection(url);
 			st = conn.createStatement();
 				st.execute("Update Account \n"
-						+ "SET hours_worked = '" + hours_worked + "', hourly_rate_of_pay = '" + hourly_rate_of_pay + "'\n"
+						+ "SET hourly_rate_of_pay = '" + hourly_rate_of_pay + "'\n"
 						+ "WHERE userID = '" + userID + "'");
 			
 		} catch (SQLException sqle) {
@@ -322,7 +383,7 @@ public class JDBCDriver {
 			info.password = rs.getString("password");
 			info.username = rs.getString("username");
 			info.status = rs.getString("status");
-			info.hour_worked = rs.getInt("hours_worked");
+			info.hours_worked = rs.getInt("hours_worked");
 			info.hourly_rate_of_pay = rs.getInt("hourly_rate_of_pay");
 			
 		} catch (SQLException sqle) {
