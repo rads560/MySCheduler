@@ -72,7 +72,7 @@ public class JDBCTest {
 		System.out.println("Set time for a user");
 		
 		// Tomy takes time 8:00-9:00
-		System.out.println("-- Tomy takes time 8:00-9:00");
+		System.out.println("-- Kyrie takes time 8:00-9:00");
 		JDBCDriver.takeTime(1, "Monday", 8, true);
 		
 		// Jane takes time 8:00-9:00
@@ -100,9 +100,10 @@ public class JDBCTest {
 			System.out.println(peoples1.get(i));
 		
 		// Clean Time taken or unavailable
-		System.out.println("-- Tomy delete his data at 8-9 Mon");
+		System.out.println("-- Kyrie delete his data at 8-9 Mon");
 		JDBCDriver.cleanTime(1, "monday", 8);
 		System.out.println("-- People taking monday 8-9");
+		peoples = JDBCDriver.checkTime("Monday", 8, true);
 		for(int i = 0; i < peoples.size(); i ++)
 			System.out.println(peoples.get(i));
 		
