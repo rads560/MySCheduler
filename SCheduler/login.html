@@ -16,7 +16,7 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Sign In</h5>
-              <form class="form-signin">
+              <form class="form-signin" method="post" action="LoginServlet">
                 <div class="form-label-group">
                   <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Username" required autofocus>
                   <label for="inputEmail">Username</label>
@@ -25,7 +25,8 @@
                   <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
                   <label for="inputPassword">Password</label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                <p id="message">${message}</p>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="window.location.href = 'calendar.html';" type="submit">Sign in</button>
               </form>
             </div>
           </div>
