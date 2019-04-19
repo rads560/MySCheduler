@@ -403,6 +403,39 @@ public class JDBCDriver {
 		return info;
 	}
 	
+	static public String getColor(int userID) {
+		// Input userID and return user's information.
+		String color = "";
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(url);
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM Colors WHERE colorID='" + userID + "'");
+			rs.next();
+			color = rs.getString("color");
+			
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		}
+		finally {
+			try {
+				if(rs != null) {rs.close();}
+				if(st != null) {st.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		return color;
+	}
+	
 	static public int GetIdByName(String username) {
 		// Input user name and return user's id if it exists else 0.
 		UserInfo info = new UserInfo();
