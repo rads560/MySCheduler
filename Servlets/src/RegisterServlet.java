@@ -10,8 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import com.google.gson.Gson;
-//import driver.JDBCDriver;
+//import JDBCDriver;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -57,7 +56,6 @@ public class RegisterServlet extends HttpServlet {
     //if successful direct to a new page
     if(responseMessage.equals(null))
     {
-    	request.getSession().setAttribute("message", responseMessage);
     	nextPage = "/calendar.html";
     }
     //if unsuccessful direct back to the same page
