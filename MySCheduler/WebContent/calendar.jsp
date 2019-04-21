@@ -23,6 +23,11 @@
             <a class="nav-link" href="index.jsp">Logout</a>
           </li>
         </ul>
+        <% String username = "";
+        	if(session.getAttribute("username") != null){
+        		username = (String) session.getAttribute("username");
+        	}; %>
+        <font color="white">Welcome <%= username %>!</font>
       </div>
     </nav>
     <div class="container">
@@ -36,8 +41,20 @@
               		ArrayList<String> a = (ArrayList<String>) session.getAttribute("array");
               		System.out.println(a); 
               		String[] temp;
-              		for(int i = 0; i < a.size(); i++){
-              			temp = a.get(i).split("\\|");
+              		ArrayList<String> slots = new ArrayList<String>();
+              		ArrayList<String> colors = new ArrayList<String>();
+              		if(a != null){
+              			System.out.println("a is not null");
+              			System.out.println(a.get(0));
+              			for(int i = 0; i < a.size(); i++){
+   	              			temp = a.get(i).split("\\|");
+   	              			if(temp.length == 4){
+	   	              			slots.add(temp[0] + "|" + temp[1]);
+	   	              			colors.add(temp[3]);
+   	              			}
+   	              		}
+              			System.out.println("slots: " + slots);
+              			System.out.println("colors: " + colors);
               		}
               	%>
               <table class="table table-hover">
@@ -55,333 +72,283 @@
                 <tbody>
                     <tr>
                       <th scope="row">8 AM</th>
-                      <td id="Monday|8" bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|8">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|8">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|8">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|8">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|8">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|8")) { %>
+                      	<td id="Monday|8" bgcolor="<%= colors.get(slots.indexOf("Monday|8")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|8" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|8")) { %>
+                      	<td id="Tuesday|8" bgcolor="<%= colors.get(slots.indexOf("Tuesday|8")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|8" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|8")) { %>
+                      	<td id="Wednesday|8" bgcolor="<%= colors.get(slots.indexOf("Wednesday|8")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|8" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|8")) { %>
+                      	<td id="Thursday|8" bgcolor="<%= colors.get(slots.indexOf("Thursday|8")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|8" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|8")) { %>
+                      	<td id="Friday|8" bgcolor="<%= colors.get(slots.indexOf("Friday|8")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|8" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">9 AM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|9">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|9">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|9">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|9">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|9">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|9")) { %>
+                      	<td id="Monday|9" bgcolor="<%= colors.get(slots.indexOf("Monday|9")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|9" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|9")) { %>
+                      	<td id="Tuesday|9" bgcolor="<%= colors.get(slots.indexOf("Tuesday|9")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|9" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|9")) { %>
+                      	<td id="Wednesday|9" bgcolor="<%= colors.get(slots.indexOf("Wednesday|9")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|9" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|9")) { %>
+                      	<td id="Thursday|9" bgcolor="<%= colors.get(slots.indexOf("Thursday|9")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|9" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|9")) { %>
+                      	<td id="Friday|9" bgcolor="<%= colors.get(slots.indexOf("Friday|9")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|9" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">10 AM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|10">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|10">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|10">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|10">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|10">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|10")) { %>
+                      	<td id="Monday|10" bgcolor="<%= colors.get(slots.indexOf("Monday|10")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|10" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|10")) { %>
+                      	<td id="Tuesday|10" bgcolor="<%= colors.get(slots.indexOf("Tuesday|10")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|10" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|10")) { %>
+                      	<td id="Wednesday|10" bgcolor="<%= colors.get(slots.indexOf("Wednesday|10")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|10" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|10")) { %>
+                      	<td id="Thursday|10" bgcolor="<%= colors.get(slots.indexOf("Thursday|10")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|10" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|10")) { %>
+                      	<td id="Friday|10" bgcolor="<%= colors.get(slots.indexOf("Friday|10")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|10" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">11 AM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|11">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|11">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|11">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|11">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|11">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|11")) { %>
+                      	<td id="Monday|11" bgcolor="<%= colors.get(slots.indexOf("Monday|11")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|11" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|11")) { %>
+                      	<td id="Tuesday|11" bgcolor="<%= colors.get(slots.indexOf("Tuesday|11")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|11" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|11")) { %>
+                      	<td id="Wednesday|11" bgcolor="<%= colors.get(slots.indexOf("Wednesday|11")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|11" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|11")) { %>
+                      	<td id="Thursday|11" bgcolor="<%= colors.get(slots.indexOf("Thursday|11")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|11" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|11")) { %>
+                      	<td id="Friday|11" bgcolor="<%= colors.get(slots.indexOf("Friday|11")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|11" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">12 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|12">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|12">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|12">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|12">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|12">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|12")) { %>
+                      	<td id="Monday|12" bgcolor="<%= colors.get(slots.indexOf("Monday|12")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|12" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|12")) { %>
+                      	<td id="Tuesday|12" bgcolor="<%= colors.get(slots.indexOf("Tuesday|12")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|12" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|12")) { %>
+                      	<td id="Wednesday|12" bgcolor="<%= colors.get(slots.indexOf("Wednesday|12")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|12" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|12")) { %>
+                      	<td id="Thursday|12" bgcolor="<%= colors.get(slots.indexOf("Thursday|12")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|12" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|12")) { %>
+                      	<td id="Friday|12" bgcolor="<%= colors.get(slots.indexOf("Friday|12")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|12" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">1 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|13">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|13">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|13">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|13">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|13">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|11")) { %>
+                      	<td id="Monday|13" bgcolor="<%= colors.get(slots.indexOf("Monday|13")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|13" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|13")) { %>
+                      	<td id="Tuesday|13" bgcolor="<%= colors.get(slots.indexOf("Tuesday|13")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|13" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|13")) { %>
+                      	<td id="Wednesday|13" bgcolor="<%= colors.get(slots.indexOf("Wednesday|13")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|13" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|13")) { %>
+                      	<td id="Thursday|13" bgcolor="<%= colors.get(slots.indexOf("Thursday|13")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|13" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|13")) { %>
+                      	<td id="Friday|13" bgcolor="<%= colors.get(slots.indexOf("Friday|13")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|13" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">2 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|14">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|14">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|14">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|14">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|14">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|11")) { %>
+                      	<td id="Monday|14" bgcolor="<%= colors.get(slots.indexOf("Monday|14")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|14" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|14")) { %>
+                      	<td id="Tuesday|14" bgcolor="<%= colors.get(slots.indexOf("Tuesday|14")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|14" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|14")) { %>
+                      	<td id="Wednesday|14" bgcolor="<%= colors.get(slots.indexOf("Wednesday|14")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|14" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|14")) { %>
+                      	<td id="Thursday|14" bgcolor="<%= colors.get(slots.indexOf("Thursday|14")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|14" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|14")) { %>
+                      	<td id="Friday|14" bgcolor="<%= colors.get(slots.indexOf("Friday|14")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|14" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">3 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|15">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|15">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|15">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|15">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|15">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|15")) { %>
+                      	<td id="Monday|15" bgcolor="<%= colors.get(slots.indexOf("Monday|15")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|15" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|15")) { %>
+                      	<td id="Tuesday|15" bgcolor="<%= colors.get(slots.indexOf("Tuesday|15")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|15" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|15")) { %>
+                      	<td id="Wednesday|15" bgcolor="<%= colors.get(slots.indexOf("Wednesday|15")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|15" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|15")) { %>
+                      	<td id="Thursday|15" bgcolor="<%= colors.get(slots.indexOf("Thursday|15")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|15" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|15")) { %>
+                      	<td id="Friday|15" bgcolor="<%= colors.get(slots.indexOf("Friday|15")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|15" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">4 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|16">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|16">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|16">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|16">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|16">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|16")) { %>
+                      	<td id="Monday|16" bgcolor="<%= colors.get(slots.indexOf("Monday|16")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|16" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|16")) { %>
+                      	<td id="Tuesday|16" bgcolor="<%= colors.get(slots.indexOf("Tuesday|16")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|16" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|16")) { %>
+                      	<td id="Wednesday|16" bgcolor="<%= colors.get(slots.indexOf("Wednesday|16")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|16" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|16")) { %>
+                      	<td id="Thursday|16" bgcolor="<%= colors.get(slots.indexOf("Thursday|16")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|16" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|16")) { %>
+                      	<td id="Friday|16" bgcolor="<%= colors.get(slots.indexOf("Friday|16")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|16" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                     <tr>
                       <th scope="row">5 PM</th>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|17">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Tuesday|17">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|17">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Thursday|17">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
-                      <td bgcolor="#FFFFFF">
-                        <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Friday|17">
-                          <span class="checkmark"></span>
-                        </label>
-                      </td>
+                      <% if(slots != null && slots.contains("Monday|17")) { %>
+                      	<td id="Monday|17" bgcolor="<%= colors.get(slots.indexOf("Monday|17")) %>"></td>
+                      <% } else { %>
+                      	<td id="Monday|17" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Tuesday|17")) { %>
+                      	<td id="Tuesday|17" bgcolor="<%= colors.get(slots.indexOf("Tuesday|17")) %>"></td>
+                      <% } else { %>
+                      	<td id="Tuesday|17" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Wednesday|17")) { %>
+                      	<td id="Wednesday|17" bgcolor="<%= colors.get(slots.indexOf("Wednesday|17")) %>"></td>
+                      <% } else { %>
+                      	<td id="Wednesday|17" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Thursday|17")) { %>
+                      	<td id="Thursday|17" bgcolor="<%= colors.get(slots.indexOf("Thursday|17")) %>"></td>
+                      <% } else { %>
+                      	<td id="Thursday|17" bgcolor="#FFFFFF"></td>
+                      <% } %>
+                      <% if(slots != null && slots.contains("Friday|17")) { %>
+                      	<td id="Friday|17" bgcolor="<%= colors.get(slots.indexOf("Friday|17")) %>"></td>
+                      <% } else { %>
+                      	<td id="Friday|17" bgcolor="#FFFFFF"></td>
+                      <% } %>
                     </tr>
                   </tbody>
               </table>

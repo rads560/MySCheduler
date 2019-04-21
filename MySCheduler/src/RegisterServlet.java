@@ -49,6 +49,7 @@ public class RegisterServlet extends HttpServlet {
     //Attempt to register the user
     String responseMessage = "";
     responseMessage = JDBCDriver.register(username, password, confpass, isEmployer);
+    System.out.println("Register user: " + username);
 
     
 //    String nextPage = "";
@@ -65,9 +66,13 @@ public class RegisterServlet extends HttpServlet {
 //    	nextPage = "/register.jsp";
 //    }
     
+    request.getSession().setAttribute("username", username);
     
 	RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/calendar.jsp");
 	dispatch.forward(request, response);
+	
+	
+	
       
   }
 

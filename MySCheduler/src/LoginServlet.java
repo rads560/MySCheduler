@@ -45,6 +45,8 @@ public class LoginServlet extends HttpServlet {
 //    	nextPage = "/login.html";
 //    }
     
+    request.getSession().setAttribute("username", username);
+    
 	RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/calendar.jsp");
 	dispatch.forward(request, response);
 

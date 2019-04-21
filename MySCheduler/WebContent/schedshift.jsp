@@ -24,6 +24,11 @@
             <a class="nav-link" href="index.jsp">Logout</a>
           </li>
         </ul>
+        <% String username = "";
+        	if(session.getAttribute("username") != null){
+        		username = (String) session.getAttribute("username");
+        	}; %>
+        <font color="white">Welcome <%= username %>!</font>
       </div>
     </nav>
     <div class="container">
@@ -33,6 +38,7 @@
             <div class="card-body">
               <h5 class="card-title text-center">Employee Availability</h5>
               <form class="form-signin" method="post" action="ScheduleServlet">
+              	<input type="hidden" id="username" name="username" value="<%= username %>">
                 <table class="table table-hover">
                   <thead>
                     <tr>
