@@ -57,6 +57,7 @@ public class ScheduleServlet extends HttpServlet {
 //	String username = "Joe";
 	String[] s = request.getParameterValues("checkbox");
 	ArrayList<Shifts> availability = new ArrayList();
+	ArrayList<TimeInfo> time;
 	for(int i=0; i < s.length; i++)
 	{
 		String[] info = s[i].split("\\|");
@@ -72,6 +73,7 @@ public class ScheduleServlet extends HttpServlet {
 	JDBCDriver.addWorkedHours(JDBCDriver.GetIdByName(username), h);
     ArrayList<Cell> C = new ArrayList<Cell>();
     ArrayList<String> passInformation = new ArrayList<String>();
+    time = JDBCDriver.getAllTime();
     String line = "";
 	
 	for(int i=0; i < h; i++)
@@ -85,6 +87,12 @@ public class ScheduleServlet extends HttpServlet {
 		line = availability.get(select).day + "|" + availability.get(select).time + "|" + username + "|" + color;
 		availability.remove(select);
 		C.add(c);
+		passInformation.add(line);
+	}
+	
+	for(int i = 0; i < time.size(); i++) {
+		String color = JDBCDriver.getColor(JDBCDriver.GetIdByName(time.get(i).username));
+		line = time.get(i).day + "|" + time.get(i).clock + "|" + time.get(i).username + "|" + color;
 		passInformation.add(line);
 	}
 	request.getSession().setAttribute("array", passInformation);

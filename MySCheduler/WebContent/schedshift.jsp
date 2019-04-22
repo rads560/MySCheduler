@@ -7,10 +7,49 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>SCheduler</title>
+    <title>MyScheduler</title>
+    
+    <script>
+    	var socket;
+    	function connectToServer() {
+    		socket = new WebSocket("ws://localhost:8080/MySCheduler/ws");
+    		socket.onopen = function(event) {
+    			//document.getElementById("test").innerHTML += "Connected!";
+    			console.log("Connected");
+    			String message = "Connection:" + document.getElementById("username").value;
+    			socket.send(message);
+    		}
+    		socket.onmessage = function(event){
+    			//document.getElementById("test").innerHTML += event.data + "<br />";
+    			console.log(event.data);
+    		}
+    		socket.onclose = function(event){
+    			//document.getElementById("test").innerHTML += event.data + "Disconnected";
+    			console.log("Disconnected");
+    		}
+    	}
+    	function sendMessage(){
+    		//console.log(document.sched.monday8.value);
+    		
+    		String message = document.getElementById("username").value;
+    		
+    		if(document.getElementById("wednesday9").checked){
+    			message += "wednesday-9";
+    		}
+    		if(document.getElementById("monday9").checked){
+    			message += "monday-9";
+    		}
+
+    		//(document.getElementById("monday-9").checked);
+    		socket.send(message);
+    		return false;
+    	}
+    </script>
   </head>
-  <body>
+  <body onload="connectToServer()">
+  
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <img class="navbar-brand" href="index.jsp" height="50" width="50" src="logo.png">
       <a class="navbar-brand" href="index.jsp">MyScheduler</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,8 +76,10 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Employee Availability</h5>
-              <form class="form-signin" method="post" action="ScheduleServlet">
+              <form name = "sched" class="form-signin" method="post" action="ScheduleServlet">
               	<input type="hidden" id="username" name="username" value="<%= username %>">
+            
+                
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -55,7 +96,7 @@
                       <th scope="row">8 AM</th>
                       <td bgcolor="#FFFFFF">
                         <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|8">
+                          <input id="monday8" type="checkbox" name="checkbox" value="Monday|8">
                           <span class="checkmark"></span>
                         </label>
                       </td>
@@ -88,7 +129,7 @@
                       <th scope="row">9 AM</th>
                       <td bgcolor="#FFFFFF">
                         <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Monday|9">
+                          <input type="checkbox" id="monday9" name="checkbox" value="Monday|9">
                           <span class="checkmark"></span>
                         </label>
                       </td>
@@ -100,7 +141,7 @@
                       </td>
                       <td bgcolor="#FFFFFF">
                         <label class="shell">
-                          <input type="checkbox" name="checkbox" value="Wednesday|9">
+                          <input type="checkbox" name="checkbox" id="wednesday9" value="Wednesday|9">
                           <span class="checkmark"></span>
                         </label>
                       </td>
@@ -389,7 +430,7 @@
                   </div>
                   <input type="number" class="form-control" name="hours" required>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="window.location.href = 'calendar.jsp';" type="submit">Submit</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="return sendMessage(); window.location.href = 'calendar.jsp';" type="submit">Submit</button>
               </form>
             </div>
           </div>
