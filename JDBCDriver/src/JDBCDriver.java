@@ -331,6 +331,50 @@ public class JDBCDriver {
 		}
 	}
 	
+	static public ArrayList<TimeInfo> getAllTime() {
+		// Input day, clock and a boolean value and then return the name of people already taken/unavailable at the time slot.
+		ArrayList<TimeInfo> output = new ArrayList<TimeInfo>();
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(url);
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM Timeslot");
+			
+			while(rs.next()) {
+				String sta = rs.getString("status");
+				if(sta.equals("taken")) {
+					TimeInfo info = new TimeInfo(); // GetUserInfo(rs.getInt("userID"));
+					UserInfo user = GetUserInfo(rs.getInt("userID"));
+					info.username = user.username;
+					info.day = rs.getString("day");
+					info.clock = rs.getInt("clock");
+					info.status = "taken";
+					output.add(info);
+				}
+			}
+			
+		} catch (SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		}
+		finally {
+			try {
+				if(rs != null) {rs.close();}
+				if(st != null) {st.close();}
+				if(conn != null) {conn.close();}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing stuff: " + sqle.getMessage());
+			}
+		}
+		return output;
+	}
+	
 	static public void cleanTime(int userID, String day, int clock) {
 		// Input userID, time and then delete the corresponding data in Timeslot table
 		Connection conn = null;
@@ -365,6 +409,7 @@ public class JDBCDriver {
 			}
 		}
 	}
+	
 	
 	static public UserInfo GetUserInfo(int userID) {
 		// Input userID and return user's information.

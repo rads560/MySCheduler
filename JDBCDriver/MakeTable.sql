@@ -22,9 +22,9 @@ CREATE TABLE Colors (
     color varchar(50)
 );
 
-INSERT INTO Color (color) VALUE ('RED');
-INSERT INTO Color (color) VALUE ('GREEN');
-INSERT INTO Color (color) VALUE ('BLUE');
-INSERT INTO Color (color) VALUE ('YELLOW');
-INSERT INTO Color (color) VALUE ('PINK');
-INSERT INTO Color (color) VALUE ('BLACK');
+INSERT INTO Colors (color) VALUE ('RED');
+INSERT INTO Colors (color) VALUE ('GREEN');
+INSERT INTO Colors (color) VALUE ('BLUE');
+INSERT INTO Colors (color) VALUE ('YELLOW');
+INSERT INTO Colors (color) VALUE ('PINK');
+INSERT INTO Colors (color) VALUE ('BLACK');

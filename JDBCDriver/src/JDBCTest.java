@@ -129,6 +129,13 @@ public class JDBCTest {
 			System.out.println("Hours_worked: " + info.hours_worked);
 		}
 		
+		// Test Info
+		System.out.println("Get all information");
+		ArrayList<TimeInfo> data = new ArrayList<TimeInfo>();
+		data = JDBCDriver.getAllTime();
+		for(int i = 0; i < data.size(); i ++) {
+			data.get(i).printAll();
+		}
 		
 	}
 }
